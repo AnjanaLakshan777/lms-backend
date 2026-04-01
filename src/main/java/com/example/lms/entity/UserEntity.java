@@ -4,6 +4,7 @@ import com.example.lms.dto.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,20 +29,20 @@ public class UserEntity {
     private Role role;
 
     // Instructor and coruse
-    @OneToMany(mappedBy = "instructor")
-    private List<CourseEntity> courses;
+    @OneToMany(mappedBy = "instructor", fetch =  FetchType.LAZY)
+    private List<CourseEntity> courses = new ArrayList<>();
 
     // Student and enrollment
-    @OneToMany(mappedBy = "student")
-    private List<EnrollmentEntity> enrollments;
+    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<EnrollmentEntity> enrollments = new ArrayList<>();
 
     // Student and grade
-    @OneToMany(mappedBy = "student")
-    private List<GradeEntity> grades;
+    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<GradeEntity> grades = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sender")
-    private List<MessageEntity> sentMessages;
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private List<MessageEntity> sentMessages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "receiver")
-    private List<MessageEntity> receivedMessages;
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private List<MessageEntity> receivedMessages = new ArrayList<>();
 }
