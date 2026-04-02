@@ -2,6 +2,7 @@ package com.example.lms.service.impl;
 
 import com.example.lms.dto.UserDto;
 import com.example.lms.entity.UserEntity;
+import com.example.lms.exception.DuplicateResourceException;
 import com.example.lms.mapper.UserMapper;
 import com.example.lms.repository.UserRepository;
 import com.example.lms.service.UserService;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveUser(UserDto userDto) {
         if(userRepository.existsByEmail(userDto.getEmail())){
-            throw new RuntimeException("Email already exists");
+            throw new DuplicateResourceException("Email already exists");
         }
         UserEntity userEntity = userMapper.toEntity(userDto);
         userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
