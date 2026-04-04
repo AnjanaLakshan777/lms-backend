@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name="content")
 public class ContentEntity {
     @Id
-    private String contentId;
+    private Long contentId;
     private String title;
     private String type;
     private String fileData;

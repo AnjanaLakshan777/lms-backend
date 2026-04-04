@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="lesson")
 public class LessonEntity {
     @Id
-    private String lessonId;
+    private Long lessonId;
     private String lessonName;
 
     // Lesson and module

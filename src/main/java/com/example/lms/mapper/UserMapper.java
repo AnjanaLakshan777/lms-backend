@@ -5,9 +5,14 @@ import com.example.lms.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     UserEntity toEntity(UserDto userDto);
+
     @Mapping(target="password", ignore = true)
     UserDto toDto(UserEntity userEntity);
+
+    List<UserDto> toDtoList(List<UserEntity> userEntities);
 }

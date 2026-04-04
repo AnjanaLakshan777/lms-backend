@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="course")
 public class CourseEntity {
     @Id
-    private String courseId;
+    private Long courseId;
     private String courseName;
     private String description;
 

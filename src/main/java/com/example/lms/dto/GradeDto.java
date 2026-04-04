@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class GradeDto {
-    private String gradeId;
+    private Long gradeId;
     private String grade;
 }

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name="message")
 public class MessageEntity {
     @Id
-    private String messageId;
+    private Long messageId;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")

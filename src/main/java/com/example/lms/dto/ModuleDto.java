@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ModuleDto {
-    private String moduleId;
+    private Long moduleId;
     private String moduleName;
     private String description;
 }

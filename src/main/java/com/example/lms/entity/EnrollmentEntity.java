@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name="enrollment")
 public class EnrollmentEntity {
     @Id
-    private String enrollId;
+    private Long enrollId;
 
     // Enrollment and student
     @ManyToOne

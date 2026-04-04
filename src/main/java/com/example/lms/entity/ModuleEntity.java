@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="module")
 public class ModuleEntity {
     @Id
-    private String moduleId;
+    private Long moduleId;
     private String moduleName;
     private String description;
 

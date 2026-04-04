@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class EnrollmentDto {
-    private String enrollId;
+    private Long enrollId;
     private String studentId;
     private String studentName;
     private String courseId;

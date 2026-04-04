@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ContentDto {
-    private String contentId;
+    private Long contentId;
     private String title;
     private String type;
     private String fileData;

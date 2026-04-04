@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name="grade")
 public class GradeEntity {
     @Id
-    private String gradeId;
+    private Long gradeId;
     private String grade;
 
     // Grade and course

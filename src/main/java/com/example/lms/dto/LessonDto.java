@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class LessonDto {
-    private String lessonId;
+    private Long lessonId;
     private String lessonName;
 }
