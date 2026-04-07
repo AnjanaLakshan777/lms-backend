@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name="course")
 public class CourseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq_gen")
+    @SequenceGenerator(name = "course_seq_gen", sequenceName = "course_seq", allocationSize = 1)
     private Long courseId;
     private String courseName;
     private String description;

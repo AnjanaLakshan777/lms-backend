@@ -39,7 +39,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
