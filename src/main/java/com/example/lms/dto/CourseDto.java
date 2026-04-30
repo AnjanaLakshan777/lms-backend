@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class CourseDto {
     private Long courseId;
+    private String courseCode;
     private String courseName;
     private String description;
+    private Long instructorId;
 }

@@ -2,9 +2,12 @@ package com.example.lms.service.impl;
 
 import com.example.lms.dto.CourseDto;
 import com.example.lms.entity.CourseEntity;
+import com.example.lms.entity.UserEntity;
+import com.example.lms.exception.DuplicateResourceException;
 import com.example.lms.exception.ResourceNotFoundException;
 import com.example.lms.mapper.CourseMapper;
 import com.example.lms.repository.CourseRepository;
+import com.example.lms.repository.UserRepository;
 import com.example.lms.service.CourseService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +21,22 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
+    private final UserRepository userRepository;
 
     @Override
     public CourseDto saveCourse(CourseDto courseDto) {
+        if(courseRepository.existsByCourseCodeOrCourseName(courseDto.getCourseCode(), courseDto.getCourseName())) {
+            throw new DuplicateResourceException("Course already exists");
+        }
+
         CourseEntity courseEntity = courseMapper.toEntity(courseDto);
+
+        if (courseDto.getInstructorId() != null) {
+            UserEntity instructor = userRepository.findById(courseDto.getInstructorId()).orElseThrow(() -> new ResourceNotFoundException("Instructor not found"));
+
+            courseEntity.setInstructor(instructor);
+        }
+
         CourseEntity savedCourse = courseRepository.save(courseEntity);
         return courseMapper.toDto(savedCourse);
     }
@@ -30,8 +45,22 @@ public class CourseServiceImpl implements CourseService {
     public CourseDto updateCourse(Long id, CourseDto courseDto) {
         CourseEntity existingCourse = courseRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Course not found"));
 
+        if (courseRepository.existsByCourseCodeOrCourseName(courseDto.getCourseCode(), courseDto.getCourseName())) {
+            throw new DuplicateResourceException("Course already exists");
+        }
+
+        existingCourse.setCourseCode(courseDto.getCourseCode());
         existingCourse.setCourseName(courseDto.getCourseName());
         existingCourse.setDescription(courseDto.getDescription());
+
+        if (courseDto.getInstructorId() != null) {
+            UserEntity instructor = userRepository.findById(courseDto.getInstructorId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Instructor not found"));
+
+            existingCourse.setInstructor(instructor);
+        } else {
+            existingCourse.setInstructor(null);
+        }
 
         CourseEntity updatedCourse = courseRepository.save(existingCourse);
         return courseMapper.toDto(updatedCourse);

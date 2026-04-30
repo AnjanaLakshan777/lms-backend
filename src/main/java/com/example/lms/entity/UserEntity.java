@@ -30,16 +30,16 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // Instructor and coruse
+    // Instructor and course
     @OneToMany(mappedBy = "instructor", fetch =  FetchType.LAZY)
     private List<CourseEntity> courses = new ArrayList<>();
 
     // Student and enrollment
-    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY)
     private List<EnrollmentEntity> enrollments = new ArrayList<>();
 
     // Student and grade
-    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", fetch =  FetchType.LAZY)
     private List<GradeEntity> grades = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)

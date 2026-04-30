@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,23 +20,24 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq_gen")
     @SequenceGenerator(name = "course_seq_gen", sequenceName = "course_seq", allocationSize = 1)
     private Long courseId;
+    private String courseCode;
     private String courseName;
     private String description;
 
     // Course and instructor
-    @ManyToOne
+    @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name="instructor_id")
     private UserEntity instructor;
 
     // Course and enrollment
-    @OneToMany(mappedBy = "course")
-    private List<EnrollmentEntity> enrollments;
+    @OneToMany(mappedBy = "course", fetch =  FetchType.LAZY)
+    private List<EnrollmentEntity> enrollments = new ArrayList<>();
 
     // Course and grade
-    @OneToMany(mappedBy = "course")
-    private List<GradeEntity> grades;
+    @OneToMany(mappedBy = "course", fetch =  FetchType.LAZY)
+    private List<GradeEntity> grades = new ArrayList<>();
 
     // Course and module
-    @OneToMany(mappedBy = "course")
-    private List<ModuleEntity> modules;
+    @OneToMany(mappedBy = "course", fetch =  FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ModuleEntity> modules = new ArrayList<>();
 }
