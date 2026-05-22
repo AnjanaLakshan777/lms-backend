@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class LessonDto {
     private Long lessonId;
+    private String lessonCode;
     private String lessonName;
+    private Long moduleId;
 }

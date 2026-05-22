@@ -19,6 +19,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/users/**").permitAll()
                         .requestMatchers("/api/v1/courses/**").permitAll()
                         .requestMatchers("/api/v1/modules/**").permitAll()
+                        .requestMatchers("/api/v1/lessons/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());

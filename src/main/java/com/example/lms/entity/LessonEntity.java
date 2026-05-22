@@ -17,6 +17,7 @@ import java.util.List;
 public class LessonEntity {
     @Id
     private Long lessonId;
+    private String lessonCode;
     private String lessonName;
 
     // Lesson and module
