@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CourseMapper {
+    @Mapping(source = "instructorId", target = "instructor.id")
     CourseEntity toEntity(CourseDto courseDto);
 
     @Mapping(source = "instructor.id", target = "instructorId")

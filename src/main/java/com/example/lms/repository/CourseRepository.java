@@ -4,5 +4,6 @@ import com.example.lms.entity.CourseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseRepository extends JpaRepository<CourseEntity,Long> {
-    boolean existsByCourseCodeOrCourseName(String courseCode, String courseName);
+    boolean existsByCourseCode(String courseCode);
+    boolean existsByCourseName(String courseName);
 }

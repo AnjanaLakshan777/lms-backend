@@ -34,7 +34,7 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "{id}", produces =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CourseDto> getCourse(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(courseService.findCourseById(id));
     }

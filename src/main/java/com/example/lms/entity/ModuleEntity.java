@@ -16,7 +16,10 @@ import java.util.List;
 @Table(name="module")
 public class ModuleEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "module_seq_gen")
+    @SequenceGenerator(name = "module_seq_gen", sequenceName = "module_seq", allocationSize = 1)
     private Long moduleId;
+    private String moduleCode;
     private String moduleName;
     private String description;
 

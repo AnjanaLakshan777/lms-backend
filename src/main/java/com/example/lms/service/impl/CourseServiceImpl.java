@@ -25,14 +25,20 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto saveCourse(CourseDto courseDto) {
-        if(courseRepository.existsByCourseCodeOrCourseName(courseDto.getCourseCode(), courseDto.getCourseName())) {
-            throw new DuplicateResourceException("Course already exists");
+
+        if (courseRepository.existsByCourseCode(courseDto.getCourseCode())) {
+            throw new DuplicateResourceException("Course code already exists");
+        }
+
+        if (courseRepository.existsByCourseName(courseDto.getCourseName())) {
+            throw new DuplicateResourceException("Course name already exists");
         }
 
         CourseEntity courseEntity = courseMapper.toEntity(courseDto);
 
         if (courseDto.getInstructorId() != null) {
-            UserEntity instructor = userRepository.findById(courseDto.getInstructorId()).orElseThrow(() -> new ResourceNotFoundException("Instructor not found"));
+            UserEntity instructor = userRepository.findById(courseDto.getInstructorId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Instructor not found"));
 
             courseEntity.setInstructor(instructor);
         }
@@ -43,10 +49,18 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto updateCourse(Long id, CourseDto courseDto) {
-        CourseEntity existingCourse = courseRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Course not found"));
 
-        if (courseRepository.existsByCourseCodeOrCourseName(courseDto.getCourseCode(), courseDto.getCourseName())) {
-            throw new DuplicateResourceException("Course already exists");
+        CourseEntity existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
+
+        if (!existingCourse.getCourseCode().equals(courseDto.getCourseCode()) &&
+                courseRepository.existsByCourseCode(courseDto.getCourseCode())) {
+            throw new DuplicateResourceException("Course code already exists");
+        }
+
+        if (!existingCourse.getCourseName().equals(courseDto.getCourseName()) &&
+                courseRepository.existsByCourseName(courseDto.getCourseName())) {
+            throw new DuplicateResourceException("Course name already exists");
         }
 
         existingCourse.setCourseCode(courseDto.getCourseCode());
